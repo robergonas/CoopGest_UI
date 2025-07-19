@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Roboto', sans-serif !important;
+  color: #FFF !important;
+  background-color: black !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+table tr td {
+  /* font-family: 'Roboto', sans-serif !important; */
+  color: #FFF !important;
+  background-color: black !important;
+}
+
+table th {
+  background-color: #5C636A !important;
+  color: #FFF !important;
+}
+
+input {
+  color: #FFF !important;
+  background-color: #181A1B !important;
+}
+
+select {
+  color: #FFF !important;
+  background-color: #181A1B !important;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+/* Para navegadores modernos */
+input::placeholder {
+  color: #4B5154 !important;
+  opacity: 1;
+
+}
+
+/* Para Firefox */
+input:-moz-placeholder {
+  color: #4B5154 !important;
+  font-style: italic;
+}
+
+/* Para Internet Explorer 10+ */
+input:-ms-input-placeholder {
+  color: #4B5154 !important;
+  font-style: italic;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

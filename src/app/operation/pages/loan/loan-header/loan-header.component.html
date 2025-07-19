@@ -1,0 +1,81 @@
+<form [formGroup]="myForm">
+  <div class="row">
+    <div class="col-md-12 p-1 alert alert-info" role="alert">
+      Pagos Fijos:
+      <span
+        class="text-primary"
+        *ngFor="let item of fixedPayment$ | async; let last = last"
+      >
+        {{ item.description }} valor
+        {{ item.value_1 | currency : "PEN" : "symbol" : "1.2-2"
+        }}{{ last ? "" : ", " }}
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 p-1">
+      <div class="form-group">
+        <label>Socio</label>
+        <select
+          class="form-select con-md-12"
+          (change)="onSelectPartner($event)"
+          formControlName="idPartner"
+        >
+          <option [value]="0" selected>Seleccione ...</option>
+          <option
+            *ngFor="let partner of partnerList"
+            [value]="partner.idPartner"
+          >
+            {{ partner.name }}
+          </option>
+          <option></option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Monto</label>
+        <input
+          type="number"
+          class="form-control col-md-12"
+          placeholder="ingrese monto"
+          formControlName="amount"
+        />
+      </div>
+    </div>
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Cuotas</label>
+        <select
+          class="form-select con-md-12"
+          (change)="onSelectFee($event)"
+          formControlName="item"
+        >
+          <option [value]="0" selected>Seleccione ...</option>
+          <option *ngFor="let fee of feeList$ | async" [value]="fee.item">
+            {{ fee.description }} ({{ fee.text_1 }})
+          </option>
+          <option></option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4 p-1 d-flex align-items-center">
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-secondary mr-1"
+          (click)="onGetFeeList()"
+        >
+          <i class="fa-regular fa-eye"></i> Simular
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary mr-1"
+          (click)="onLoanAdd()"
+        >
+          <i class="fas fa-save"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,77 @@
+.center-login {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.form-control {
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.login-container {
+  background-color: #1e1e1e !important;
+  border: 2px solid #fff !important;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  width: 300px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: calc(100% - 1rem);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.recover-password {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.recover-password:hover {
+  color: #0056b3;
+}
+
+/* input {
+  color: #FFF !important;
+  background-color: #181A1B !important;
+} */
+
+/* Para navegadores modernos */
+/* input::placeholder {
+  color: #4B5154 !important;
+  opacity: 1;
+
+}
+
+input:-moz-placeholder {
+  color: #4B5154 !important;
+  font-style: italic;
+}
+
+input:-ms-input-placeholder {
+  color: #4B5154 !important;
+  font-style: italic;
+} */

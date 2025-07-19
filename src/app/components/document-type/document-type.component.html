@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label>Tipo documento</label>
+  <select
+    [ngModel]="idDocument"
+    class="form-select con-md-12"
+    (change)="onSelectDocumentType($event)"
+  >
+    <option [value]="0" selected>Seleccione ...</option>
+    <option *ngFor="let document of documentList" [value]="document.idDocument">
+      {{ document.description }}
+    </option>
+  </select>
+</div>

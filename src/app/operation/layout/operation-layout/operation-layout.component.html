@@ -1,0 +1,94 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
+    <mat-toolbar>
+      <span>Gestión Operativa</span>
+      <span class="spacer"></span>
+      <!-- <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button> -->
+    </mat-toolbar>
+    <mat-nav-list id="myList">
+      <!-- Sección Socio -->
+      <div class="list-section">
+        <div class="list-section-header" (click)="toggleSection('socio')">
+          <i class="fas fa-users me-2"></i> Socio
+          <i class="fas fa-chevron-down float-end"></i>
+        </div>
+        <ul class="list-group sub-options" id="socio">
+          <li
+            class="list-group-item"
+            routerLink="/operation/partner"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-plus-circle me-2"></i> Nuevo socio
+          </li>
+          <li
+            class="list-group-item"
+            routerLink="/operation/loan"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-hand-holding-usd me-2"></i>
+            Préstamos
+          </li>
+          <li
+            class="list-group-item"
+            routerLink="/operation/payment"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-money-bill-wave me-2"></i> Pagos
+          </li>
+          <li
+            class="list-group-item"
+            routerLink="/operation/bills"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-solid fa-money-bill me-2"></i> Gastos
+          </li>
+          <li
+            class="list-group-item"
+            routerLink="/operation/paymentHistory"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-history me-2"></i> Historial
+          </li>
+
+          <li
+            class="list-group-item"
+            routerLink="/operation/utility"
+            (click)="sidenav.toggle()"
+          >
+            <i class="fas fa-coins me-2"></i> Distribución utilidad
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sección Usuario -->
+      <div class="list-section">
+        <div class="list-section-header" (click)="toggleSection('usuario')">
+          <i class="fas fa-user me-2"></i> Usuario
+          <i class="fas fa-chevron-down float-end"></i>
+        </div>
+        <ul class="list-group sub-options" id="usuario">
+          <li class="list-group-item" (click)="sidenav.toggle()">
+            <i class="fas fa-plus-circle me-2"></i> Nuevo usuario
+          </li>
+        </ul>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button mat-button (click)="onLogout()">Logout</button>
+  </mat-toolbar>
+  <div class="container">
+    <body>
+      <app-header></app-header>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </body>
+  </div>
+</mat-sidenav-container>

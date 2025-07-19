@@ -1,0 +1,234 @@
+<div class="center-form" @fadeIn>
+  <form autocomplete="off" class="form-container" [formGroup]="myForm">
+    <div class="header">
+      <h2>Gestionar socio</h2>
+      <button type="button" class="close-button" (click)="closeDialog()">
+        &times;
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-12 p-1">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input
+            type="text"
+            class="form-control col-md-12"
+            formControlName="name"
+          />
+          <div
+            *ngIf="myForm.get('name')!.touched && myForm.get('name')?.invalid"
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('name')?.errors?.['required']"
+            >
+              El nombre es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('name')?.errors?.['minlength']"
+            >
+              El nombre debe tener al menos 10 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <app-document-type
+            formControlName="idDocument"
+            (documentTypeSelected)="onDocumentTypeSelected($event)"
+          ></app-document-type>
+
+          <div
+            *ngIf="
+              myForm.get('idDocument')!.touched &&
+              myForm.get('idDocument')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              class="text-danger"
+              *ngIf="myForm.get('idDocument')?.errors?.['required']"
+            >
+              El tipo de documento es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('idDocument')?.errors?.['invalidIdDocument']"
+              >Seleccione un tipo de documento válido.</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <label>Nro documento</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="documentNumber"
+            placeholder="nro documento"
+          />
+
+          <div
+            *ngIf="
+              myForm.get('documentNumber')!.touched &&
+              myForm.get('documentNumber')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('documentNumber')?.errors?.['required']"
+            >
+              El nombre es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('documentNumber')?.errors?.['minlength']"
+            >
+              El nombre debe tener al menos 9 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <label>Fecha nacimiento </label>
+          <input type="date" class="form-control" formControlName="birthDate" />
+
+          <div
+            *ngIf="
+              myForm.get('birthDate')!.touched &&
+              myForm.get('birthDate')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('birthDate')?.errors?.['required']"
+            >
+              La fecha de nacimiento es obligatorio.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phoneNumber"
+            placeholder="teléfono"
+          />
+
+          <div
+            *ngIf="
+              myForm.get('phoneNumber')!.touched &&
+              myForm.get('phoneNumber')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('phoneNumber')?.errors?.['required']"
+            >
+              El número de teléfono es obligatorio
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('phoneNumber')?.errors?.['minlength']"
+            >
+              El número de teléfono debe tener almenos 9 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 p-1">
+        <div class="form-group">
+          <label>Dirección </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="address"
+            placeholder="dirección"
+          />
+
+          <div
+            *ngIf="
+              myForm.get('address')!.touched && myForm.get('address')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('address')?.errors?.['required']"
+            >
+              La dirección es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('address')?.errors?.['minlength']"
+            >
+              La dirección debe tener al menos 10 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 p-1">
+        <div class="form-group">
+          <label>Correo electrónico </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="email"
+            placeholder="correo eletrónico"
+          />
+
+          <div
+            *ngIf="myForm.get('email')!.touched && myForm.get('email')?.invalid"
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('email')?.errors?.['required']"
+            >
+              El correo electrónico es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('email')?.errors?.['email']"
+            >
+              Ingrese un correo electrónico válido.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md 12 p-1 text-right">
+        <button
+          type="button"
+          (click)="onSavePartner()"
+          class="btn btn-primary"
+          *ngIf="savePartner"
+        >
+          <i class="fas fa-save"></i> Guardar
+        </button>
+        <button
+          type="button"
+          (click)="onUpdPartner()"
+          class="btn btn-success"
+          *ngIf="!savePartner"
+        >
+          <i class="fas fa-save"></i> Actualizar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,12 @@
+<div @fadeIn>
+  <app-partner-search (search)="onSearch($event)"></app-partner-search>
+  <app-partner-list
+    (search)="onSearch($event)"
+    [showEditbutton]="true"
+    [showEnabledbutton]="true"
+    [showDisabledbutton]="true"
+    [showSelectdbutton]="false"
+    [partnerList]="partnerList"
+  ></app-partner-list>
+  <app-pager [pager]="pager" (pageChange)="goToPage($event)"></app-pager>
+</div>

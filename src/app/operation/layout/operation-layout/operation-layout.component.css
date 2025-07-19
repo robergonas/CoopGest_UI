@@ -1,0 +1,71 @@
+/* Estilos para las secciones del menú */
+.list-section {
+  margin-bottom: 1rem;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  background-color: black !important;
+  color: #FFF !important;
+}
+
+.list-section-header {
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  /* color: #333;
+  background-color: #f8f9fa; */
+  background-color: black !important;
+  color: #FFF !important;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.list-section-header:hover {
+  /* background-color: #e9ecef; */
+  background-color: black !important;
+  color: #FFF !important;
+}
+
+/* Subopciones con sangría */
+.sub-options {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: black !important;
+  color: #FFF !important;
+}
+
+.sub-options .list-group-item {
+  padding: 0.5rem 1rem;
+  border: none;
+  /* border-bottom: 1px solid #eee; */
+  /* color: #555; */
+  /* transition: background-color 0.3s ease; */
+  background-color: black !important;
+  color: #FFF !important;
+}
+
+.sub-options .list-group-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Íconos de Font Awesome */
+.fas {
+  font-size: 1rem;
+  color: #007bff;
+}
+
+/* Flecha para indicar desplegable */
+.fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+/* Rotación de la flecha cuando la sección está abierta */
+.list-section-header.active .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.container {
+  margin-left: 10px;
+  margin-right: 10px;
+  max-width: 95%;
+}

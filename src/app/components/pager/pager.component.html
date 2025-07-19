@@ -1,0 +1,22 @@
+<div
+  id="paginationContainer"
+  class="pagination-container d-inline"
+  *ngIf="dataLoaded && pages.length > 0"
+>
+  <label
+    >Mostrando del {{ pager.starRow }} al {{ pager.endRow }} de
+    {{ pager.totalRecords }} registros.</label
+  >
+  &nbsp;&nbsp;
+
+  <div class="pagination-buttons">
+    <button
+      *ngFor="let page of pages"
+      (click)="goToPage(page)"
+      [class.active]="pager.pageNumber === page"
+      class="pagination-button"
+    >
+      {{ page }}
+    </button>
+  </div>
+</div>

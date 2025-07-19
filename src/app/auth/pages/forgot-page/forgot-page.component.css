@@ -1,0 +1,68 @@
+.center-login {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212;
+  color: #fff;
+}
+
+.login-container {
+  background-color: #1e1e1e;
+  border: 2px solid #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  width: 430px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: calc(100% - 1rem);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.recover-password {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.recover-password:hover {
+  color: #0056b3;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: red;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

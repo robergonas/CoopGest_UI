@@ -1,0 +1,15 @@
+<div id="feeContent">
+  <app-loan-header
+    [partnerList]="partnerList"
+    [feeList$]="feeList$"
+    [fixedPayment$]="fixedPayment$"
+    (partnerSelected)="onPartnerSelected($event)"
+    (itemSelected)="onItemSelected($event)"
+    (GetFeeList)="onGetFeList($event)"
+    (SetLoanAdd)="onSetLoanAdd($event)"
+  ></app-loan-header>
+  <app-loan-detail
+    [feeList]="feeList"
+    [informationMessage]="informationMessage"
+  ></app-loan-detail>
+</div>

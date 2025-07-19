@@ -1,0 +1,12 @@
+<div id="paymentContent">
+  <app-payment-header
+    [partnerList]="partnerList"
+    (partnerSelected)="onPartnerSelected($event)"
+  ></app-payment-header>
+  <app-payment-detail
+    (partnerSelected)="onPartnerSelected($event)"
+    [statementList]="statementList"
+    [feeScheduleList]="feeScheduleList"
+    [loanHistorylist]="loanHistoryList"
+  ></app-payment-detail>
+</div>

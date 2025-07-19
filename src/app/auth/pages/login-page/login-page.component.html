@@ -1,0 +1,86 @@
+<div class="center-login" @fadeIn>
+  <form autocomplete="off" [formGroup]="myForm" class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <div class="form-group">
+      <label><i class="fas fa-user"></i> Usuario</label>
+      <input
+        type="text"
+        formControlName="userName"
+        (keydown.enter)="onLogin()"
+        class="form-control"
+        placeholder="ingrese usuario"
+      />
+      <div
+        *ngIf="
+          myForm.get('userName')!.touched && myForm.get('userName')?.invalid
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="myForm.get('userName')?.errors?.['required']"
+        >
+          El nombre de usuario es obligatorio.
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="myForm.get('userName')?.errors?.['minlength']"
+        >
+          El nombre de usuario debe tener al menos 4 caracteres.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-key"></i> Contraseña</label>
+      <input
+        type="password"
+        formControlName="password"
+        (keydown.enter)="onLogin()"
+        class="form-control"
+        placeholder="ingrese contraseña"
+      />
+      <div
+        *ngIf="
+          myForm.get('password')!.touched && myForm.get('password')?.invalid
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="myForm.get('password')?.errors?.['required']"
+        >
+          El password es obligatorio.
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="myForm.get('password')?.errors?.['minlength']"
+        >
+          El password debe tener al menos 8 caracteres.
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        type="button"
+        [disabled]="myForm.invalid"
+        class="btn btn-primary btn-lg mt-2 w-100"
+        (click)="onLogin()"
+      >
+        Ingresar
+      </button>
+      <button
+        type="button"
+        (click)="onForgotPassword()"
+        class="recover-password"
+      >
+        ¿Olvidaste tu contraseña?
+      </button>
+      <button
+        type="button"
+        (click)="onChangePassword()"
+        class="recover-password"
+      >
+        Cambiar contraseña
+      </button>
+    </div>
+  </form>
+</div>

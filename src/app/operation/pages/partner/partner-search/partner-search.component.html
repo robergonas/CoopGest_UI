@@ -1,0 +1,66 @@
+<form [formGroup]="myForm">
+  <div class="row">
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Socio</label>
+        <input
+          type="text"
+          class="form-control col-md-12"
+          placeholder="nombre"
+          formControlName="name"
+          (keydown.enter)="onEnter()"
+        />
+
+        <div *ngIf="myForm.get('name')!.touched && myForm.get('name')?.invalid">
+          <small
+            class="text-danger"
+            *ngIf="myForm.get('name')?.errors?.['minlength']"
+          >
+            El nombre debe tener al menos 3 caracteres.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-1">
+      <app-document-type
+        (documentTypeSelected)="onDocumentTypeSelected($event)"
+      ></app-document-type>
+    </div>
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Nro. documento</label>
+        <input
+          type="text"
+          class="form-control col-md-12"
+          placeholder="nro. documento"
+          formControlName="documentNumber"
+          (keydown.enter)="onEnter()"
+        />
+      </div>
+      <div
+        *ngIf="
+          myForm.get('documentNumber')!.touched &&
+          myForm.get('documentNumber')?.invalid
+        "
+      >
+        <small
+          class="text-danger"
+          *ngIf="myForm.get('documentNumber')?.errors?.['minlength']"
+        >
+          El número de documento debe tener al menos 6 caracteres.
+        </small>
+      </div>
+    </div>
+    <div class="col-md-4 p-1 d-flex align-items-center">
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="onSearch()">
+          <i class="fas fa-search"></i> Buscar
+        </button>
+        <button type="button" class="btn btn-secondary ml-1" (click)="onNew()">
+          <i class="fa-solid fa-plus"></i> Nuevo
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2 p-1"></div>
+  </div>
+</form>

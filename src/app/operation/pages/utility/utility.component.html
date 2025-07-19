@@ -1,0 +1,139 @@
+<form [formGroup]="myForm">
+  <div class="row">
+    <div class="col-md-4 p-1">
+      <div class="form-group">
+        <label>Socio</label>
+        <select class="form-select" formControlName="idPartner">
+          <option [value]="0" selected>Seleccione ...</option>
+          <option
+            *ngFor="let partner of partnerList"
+            [value]="partner.idPartner"
+          >
+            {{ partner.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4 p-1">
+      <div class="form-group">
+        <label>Periodo</label>
+        <select class="form-select" formControlName="period">
+          <option [value]="0" selected>Seleccione ...</option>
+          <option *ngFor="let period of periodList" [value]="period.period">
+            {{ period.textPeriod }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4 p-1">
+      <div class="form-group">
+        <br />
+        <button class="btn btn-primary" (click)="onGetUtility()">
+          <i class="fa fa-search"></i>
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+  <p
+    class="mt-3 alert alert-info"
+    *ngIf="dataLoaded && utilityList.length === 0"
+  >
+    No hay registros disponibles ...
+  </p>
+  <div *ngIf="dataLoaded && partnerSummaries.length > 0" class="container">
+    <div class="text-end mb-3">
+      <button class="btn btn-primary" (click)="onExportToPDF()">
+        <i class="fas fa-file-pdf me-2"></i>Exportar a PDF
+      </button>
+    </div>
+    <div #utilityCardsContainer>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div *ngFor="let partner of partnerSummaries" class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="card-title mb-0">{{ partner.name }}</h5>
+            </div>
+            <div class="card-body">
+              <!-- Resumen acumulado -->
+              <div class="summary-section mb-3 p-2 bg-light rounded">
+                <div class="d-flex justify-content-between">
+                  <span>Capital Acumulado:</span>
+                  <strong>{{
+                    partner.totalCapital | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Utilidad Acumulada:</span>
+                  <strong>{{
+                    partner.totalUtility | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div
+                  class="d-flex justify-content-between text-success fw-bold"
+                >
+                  <span>Neto:</span>
+                  <strong>{{
+                    partner.netAmount | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+              </div>
+              <hr />
+              <!-- Detalle por período -->
+              <div
+                *ngFor="let period of partner.periods"
+                class="period-detail mb-3"
+              >
+                <h6 class="period-title text-primary">{{ period.month }}</h6>
+
+                <div class="d-flex justify-content-between">
+                  <span>Capital período:</span>
+                  <strong>{{
+                    period.periodCapital | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Utilidad período:</span>
+                  <strong>{{
+                    period.periodUtility | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Gasto período:</span>
+                  <strong>{{
+                    period.periodBill | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between text-primary">
+                  <span>% Participación:</span>
+                  <strong>{{ period.partnerPercentage }}%</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Capital socio:</span>
+                  <strong>{{
+                    period.partnerCapital
+                      | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Utilidad socio:</span>
+                  <strong>{{
+                    period.partnerUtility
+                      | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+                <div class="d-flex justify-content-between fw-bold">
+                  <span>Total período:</span>
+                  <strong>{{
+                    period.totalPeriod | currency : "PEN" : "symbol" : "1.2-2"
+                  }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</form>
