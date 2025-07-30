@@ -1,0 +1,96 @@
+<div class="center-form" @fadeIn>
+  <form autocomplete="off" class="form-container" [formGroup]="myForm">
+    <div class="header">
+      <h2>Gestionar usuario</h2>
+      <button type="button" class="close-button" (click)="closeDialog()">
+        &times;
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-10 p-1">
+        <div class="form-group">
+          <label>Socio</label>
+          <select class="form-select con-md-12" formControlName="idPartner">
+            <option [value]="0" selected>Seleccione ...</option>
+            <option
+              *ngFor="let partner of partnerList"
+              [value]="partner.idPartner"
+              [disabled]="!partner.active"
+              [title]="!partner.active ? 'Partner inactivo' : ''"
+            >
+              {{ partner.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <label>Usuario</label>
+          <input
+            type="text"
+            class="form-control col-md-12"
+            formControlName="userName"
+            placeholder="usuario minimo 5 caracteres"
+          />
+          <div
+            *ngIf="
+              myForm.get('userName')!.touched && myForm.get('userName')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('userName')?.errors?.['required']"
+            >
+              El usuario es obligatorio.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('userName')?.errors?.['minlength']"
+            >
+              El usuario debe tener al menos 5 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 p-1">
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input
+            type="text"
+            class="form-control col-md-12"
+            formControlName="password"
+            placeholder="contraseña minimo 8 caracteres"
+            title="una letra mayúscula, una letra minúscula, un número, un caracter especial"
+          />
+          <div
+            *ngIf="
+              myForm.get('password')!.touched && myForm.get('password')?.invalid
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('password')?.errors?.['required']"
+            >
+              La contraseña es obligatoria.
+            </small>
+            <small
+              class="text-danger"
+              *ngIf="myForm.get('password')?.errors?.['minlength']"
+            >
+              La contraseña debe tener al menos 8 caracteres.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md 12 p-1 text-right">
+        <button type="button" class="btn btn-primary" (click)="onSaveUser()">
+          <i class="fas fa-save"></i> Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

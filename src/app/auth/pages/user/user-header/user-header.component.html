@@ -1,0 +1,41 @@
+<form [formGroup]="myForm">
+  <div class="row">
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input
+          type="text"
+          class="form-control col-md-12"
+          placeholder="usuario"
+          formControlName="userName"
+          (keydown.enter)="onEnter()"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-2 p-1">
+      <div class="form-group">
+        <label>Socio</label>
+        <input
+          type="text"
+          class="form-control col-md-12"
+          placeholder="nombre"
+          formControlName="name"
+          (keydown.enter)="onEnter()"
+        />
+      </div>
+    </div>
+    <div class="col-md-4 p-1 d-flex align-items-center">
+      <div class="form-group">
+        <br />
+        <button
+          type="button"
+          class="btn btn-secondary ml-1"
+          (click)="onNewUser()"
+        >
+          <i class="fa-solid fa-plus"></i> Nuevo
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

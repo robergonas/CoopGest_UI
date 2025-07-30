@@ -13,4 +13,5 @@ export interface User {
   fullName: string;
   totalRecords: number;
   isAutenticated: boolean;
+  email: string;
 }

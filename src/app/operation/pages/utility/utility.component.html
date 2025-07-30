@@ -3,7 +3,11 @@
     <div class="col-md-4 p-1">
       <div class="form-group">
         <label>Socio</label>
-        <select class="form-select" formControlName="idPartner">
+        <select
+          class="form-select"
+          (change)="onPartnerSelected()"
+          formControlName="idPartner"
+        >
           <option [value]="0" selected>Seleccione ...</option>
           <option
             *ngFor="let partner of partnerList"
@@ -32,6 +36,17 @@
           <i class="fa fa-search"></i>
           Buscar
         </button>
+        <button
+          class="btn btn-info ml-1"
+          (click)="OnSendEmail()"
+          *ngIf="
+            myForm.get('idPartner')?.value > 0 ||
+            myForm.get('period')?.value > 0
+          "
+        >
+          <i class="fa-regular fa-envelope"></i>
+          Enviar
+        </button>
       </div>
     </div>
   </div>
@@ -55,7 +70,6 @@
               <h5 class="card-title mb-0">{{ partner.name }}</h5>
             </div>
             <div class="card-body">
-              <!-- Resumen acumulado -->
               <div class="summary-section mb-3 p-2 bg-light rounded">
                 <div class="d-flex justify-content-between">
                   <span>Capital Acumulado:</span>
@@ -79,7 +93,6 @@
                 </div>
               </div>
               <hr />
-              <!-- Detalle por período -->
               <div
                 *ngFor="let period of partner.periods"
                 class="period-detail mb-3"
@@ -135,5 +148,4 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </form>

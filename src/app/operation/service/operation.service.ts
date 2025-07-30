@@ -1,11 +1,16 @@
 import { EncryptionService } from './../../functions/encryption.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  JsonpInterceptor,
+} from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 
 import { constants } from '../../constants/constants';
 import { Partner } from '../../interface/partner';
 import { json } from 'stream/consumers';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 @Injectable({
   providedIn: 'root',
@@ -632,6 +637,148 @@ export class OperationService {
 
     return this.http
       .post<any>(`${constants.BASE_URL_LOAN}GetUtility`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  onGetUser(name: string, userName: string): Observable<any> {
+    const encryptedUserName = this.encryption.encryptData(userName);
+    const encryptedFullName = this.encryption.encryptData(name);
+    const encryptedDocumentNumber = this.encryption.encryptData('');
+    const encryptedIdDocument = this.encryption.encryptData('0');
+    const encryptedPageNumber = this.encryption.encryptData('1');
+    const encryptedPageSize = this.encryption.encryptData('1000');
+    const body = JSON.stringify(
+      '{"userName":"' +
+        encryptedUserName +
+        '","fullName":"' +
+        encryptedFullName +
+        '","idDocument":"' +
+        encryptedIdDocument +
+        '","documentNumber":"' +
+        encryptedDocumentNumber +
+        '","pageNumber":"' +
+        encryptedPageNumber +
+        '","pageSize":"' +
+        encryptedPageSize +
+        '"}'
+    );
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_USERAPP}GetAllUser`, body, { headers })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  onChangeUserStatus(idPartner: number, active: boolean): Observable<any> {
+    const encryptedIdPartner = this.encryption.encryptData(idPartner + '');
+    let encryptedActive: string = '';
+
+    if (active) encryptedActive = this.encryption.encryptData('1');
+    else encryptedActive = this.encryption.encryptData('0');
+
+    const encryptedIdUser = this.encryption.encryptData(
+      constants.current_User()!.idPartner + ''
+    );
+    const body = JSON.stringify(
+      '{"idPartner":"' +
+        encryptedIdPartner +
+        '","active":"' +
+        encryptedActive +
+        '","idUser":"' +
+        encryptedIdUser +
+        '"}'
+    );
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http
+      .post<any>(`${constants.BASE_URL_USERAPP}SetUserStatus`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  onUserAdd(
+    idPartner: string,
+    userName: string,
+    pasword: string
+  ): Observable<any> {
+    const encryptedIdPartner = this.encryption.encryptData(idPartner + '');
+    const encryptedUserName = this.encryption.encryptData(userName);
+    const encryptedPassword = this.encryption.encryptData(pasword);
+    const encryptedIdUser = this.encryption.encryptData(
+      constants.current_User()!.idPartner + ''
+    );
+    const body = JSON.stringify(
+      '{"idPartner":"' +
+        encryptedIdPartner +
+        '","userName":"' +
+        encryptedUserName +
+        '","password":"' +
+        encryptedPassword +
+        '","idUserCreation":"' +
+        encryptedIdUser +
+        '"}'
+    );
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_USERAPP}SetUserAdd`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  onSendPdfMail(idPartner: string, pdfBase64: string): Observable<any> {
+    const encryptedIdPartner = this.encryption.encryptData(idPartner);
+    const body = JSON.stringify(
+      '{"email":"' + encryptedIdPartner + '","pdfBase64":"' + pdfBase64 + '"}'
+    );
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_LOAN}SendPdfEmail`, body, {
         headers,
       })
       .pipe(

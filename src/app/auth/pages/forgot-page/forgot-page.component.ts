@@ -35,31 +35,35 @@ export class ForgotPageComponent {
     ],
   });
 
-  onForgotPassword(): void {
-    if (this.myForm.valid) {
-      const { userName, email } = this.myForm.value;
+  async onForgotPassword() {
+    try {
+      if (this.myForm.valid) {
+        const { userName, email } = this.myForm.value;
 
-      this.authServiceService
-        .onForgotPassword(userName, email)
-        .subscribe((response) => {
-          if (response.state) {
-            Swal.fire({
-              icon: 'success',
-              title: '¡Contraseña Enviada!',
-              html: 'Hemos enviado tu nueva contraseña al correo electrónico asociado a tu cuenta. Por favor, revisa tu bandeja de entrada o carpeta de spam.',
-              confirmButtonText: 'Entendido',
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error!',
-              text: response.message || 'error desconocido.',
-              confirmButtonText: 'Entendido',
-            });
-          }
-        });
-    } else {
-      this.myForm.markAllAsTouched();
+        this.authServiceService
+          .onForgotPassword(userName, email)
+          .subscribe((response) => {
+            if (response.state) {
+              Swal.fire({
+                icon: 'success',
+                title: '¡Contraseña Enviada!',
+                html: 'Hemos enviado tu nueva contraseña al correo electrónico asociado a tu cuenta. Por favor, revisa tu bandeja de entrada o carpeta de spam.',
+                confirmButtonText: 'Entendido',
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: response.message || 'error desconocido.',
+                confirmButtonText: 'Entendido',
+              });
+            }
+          });
+      } else {
+        this.myForm.markAllAsTouched();
+      }
+    } catch (error) {
+      Swal.fire('Error', 'No se pudo enviar la nueva conatrseña', 'error');
     }
   }
   closeDialog(): void {

@@ -46,12 +46,12 @@ export class UtilityComponent {
   selectedPartner: Partner | null = null;
   dataLoaded: boolean = false;
   myForm: FormGroup;
+  emailPartner: string = '';
 
   @ViewChild('utilityCardsContainer') utilityCardsContainer!: ElementRef;
 
   constructor(
     @Inject(LOCALE_ID) public locale: string,
-    //private currencyPipe: CurrencyPipe,
     private operationService: OperationService,
     private fb: FormBuilder
   ) {
@@ -59,6 +59,73 @@ export class UtilityComponent {
       idPartner: ['0'],
       period: ['0'],
     });
+  }
+
+  async generatedPdfAsBase64(htmlElement: HTMLElement): Promise<string> {
+    const canvas = await html2canvas(htmlElement, {
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      allowTaint: true,
+    });
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const imgData = canvas.toDataURL('image/png');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    return pdf.output('datauristring').split(',')[1];
+  }
+
+  onPartnerSelected(): void {
+    const idPartenerEmail = Number(this.myForm.get('idPartner')?.value);
+    this.emailPartner =
+      this.partnerList.find((p) => p.idPartner === idPartenerEmail)?.email ??
+      'Email no encontrado';
+  }
+
+  async OnSendEmail() {
+    if (!this.utilityCardsContainer) return;
+
+    Swal.fire({
+      title: 'Generando PDF',
+      html: 'Por favor espere...',
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
+    });
+
+    try {
+      const pdfBase64 = await this.generatedPdfAsBase64(
+        this.utilityCardsContainer.nativeElement
+      );
+
+      await this.operationService
+        .onSendPdfMail(this.emailPartner, pdfBase64)
+        .subscribe((response) => {
+          if (response.state) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'El reporte ha sido enviado por correo',
+              confirmButtonText: 'Aceptar',
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'Error al enviar el reporte por correo',
+              confirmButtonText: 'Aceptar',
+            });
+          }
+        });
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se pudo enviar el reporte',
+        confirmButtonText: 'Entendido',
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -168,8 +235,6 @@ export class UtilityComponent {
       }
     });
   }
-
-  onSelectPeriod(): void {}
 
   onSearchPartner(): void {
     this.operationService

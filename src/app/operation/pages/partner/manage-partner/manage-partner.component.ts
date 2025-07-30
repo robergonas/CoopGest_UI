@@ -35,7 +35,6 @@ export class ManagePartnerComponent implements OnInit {
     documentNumber: string;
     idDocument: string;
   }>();
-  //@Input() savePartner: boolean = false;
 
   constructor(
     private operationService: OperationService,

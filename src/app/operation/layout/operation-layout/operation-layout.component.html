@@ -51,7 +51,6 @@
           >
             <i class="fas fa-history me-2"></i> Historial
           </li>
-
           <li
             class="list-group-item"
             routerLink="/operation/utility"
@@ -69,7 +68,11 @@
           <i class="fas fa-chevron-down float-end"></i>
         </div>
         <ul class="list-group sub-options" id="usuario">
-          <li class="list-group-item" (click)="sidenav.toggle()">
+          <li
+            class="list-group-item"
+            routerLink="/operation/user"
+            (click)="sidenav.toggle()"
+          >
             <i class="fas fa-plus-circle me-2"></i> Nuevo usuario
           </li>
         </ul>

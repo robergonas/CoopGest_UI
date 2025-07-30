@@ -1,0 +1,4 @@
+<div @fadeIn>
+  <app-user-header (onGetUser)="onGetUser($event)"></app-user-header>
+  <app-user-detail [userList]="userList" (onUserChangeStatus)="onUserChangeStatus($event)"></app-user-detail>
+</div>

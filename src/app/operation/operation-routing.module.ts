@@ -8,6 +8,7 @@ import { PaymentComponent } from './pages/pay/payment/payment.component';
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { BillsComponent } from './pages/bills/bills.component';
 import { UtilityComponent } from './pages/utility/utility.component';
+import { UserComponent } from '../auth/pages/user/user/user.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'paymentHistory', component: PaymentHistoryComponent },
       { path: 'bills', component: BillsComponent },
       { path: 'utility', component: UtilityComponent },
+      { path: 'user', component: UserComponent },
       { path: '**', redirectTo: 'home' },
     ],
   },

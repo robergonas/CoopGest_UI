@@ -25,10 +25,11 @@
           <option
             *ngFor="let partner of partnerList"
             [value]="partner.idPartner"
+            [disabled]="!partner.active"
+            [title]="!partner.active ? 'Partner inactivo' : ''"
           >
             {{ partner.name }}
           </option>
-          <option></option>
         </select>
       </div>
     </div>

@@ -202,7 +202,6 @@ export class PaymentHistoryComponent {
       );
     } catch (error) {
       console.error('Error al generar PDF:', error);
-      alert('Ocurrió un error al generar el PDF');
     } finally {
       // Ocultar loader
       document.body.removeChild(loadingElement);
