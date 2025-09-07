@@ -1,5 +1,6 @@
 export interface FeeSchedule {
   idLoan: number;
+  idPartner: number;
   feeNumber: number;
   initialBalance: number;
   interestAmount: number;

@@ -7,4 +7,9 @@ export interface Fee {
   feeAmount: number;
   endBalance: number;
   rateValue: number;
+  numberOfFee: number;
+  interestAmount: number;
+  amountToPay: number;
+  status: string;
+  idLoan: number;
 }

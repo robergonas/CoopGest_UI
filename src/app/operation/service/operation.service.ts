@@ -793,4 +793,39 @@ export class OperationService {
         })
       );
   }
+
+  onRefinancyngOnDemand(idPartner: string, idFee: string): Observable<any> {
+    const encryptedIdPartner = this.encryption.encryptData(idPartner + '');
+    const encryptedIdFee = this.encryption.encryptData(idFee);
+    const encryptedIdUser = this.encryption.encryptData(
+      constants.current_User()!.idPartner + ''
+    );
+    const body = JSON.stringify(
+      '{"idPartner":"' +
+        encryptedIdPartner +
+        '","idFee":"' +
+        encryptedIdFee +
+        '","idUser":"' +
+        encryptedIdUser +
+        '"}'
+    );
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_LOAN}SetRefinancingOnDemand`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
 }

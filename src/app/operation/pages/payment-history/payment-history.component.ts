@@ -81,8 +81,7 @@ export class PaymentHistoryComponent {
       if (response.state) {
         this.loanList = response.list || [];
         this.dataLoaded = true;
-        // if (this.loanList.length > 0) this.dataLoaded = true;
-        // else this.dataLoaded = false;
+        
 
         this.feeScheduleList = [];
         this.loanHistoryList = [];

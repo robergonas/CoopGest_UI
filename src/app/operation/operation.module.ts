@@ -24,6 +24,7 @@ import { PaymentComponent } from './pages/pay/payment/payment.component';
 import { PaymentHistoryComponent } from './pages/payment-history/payment-history.component';
 import { BillsComponent } from './pages/bills/bills.component';
 import { UtilityComponent } from './pages/utility/utility.component';
+import { RefinanceModalComponent } from './pages/pay/refinance-modal/refinance-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UtilityComponent } from './pages/utility/utility.component';
     PaymentHistoryComponent,
     BillsComponent,
     UtilityComponent,
+    RefinanceModalComponent,
   ],
   imports: [
     CommonModule,

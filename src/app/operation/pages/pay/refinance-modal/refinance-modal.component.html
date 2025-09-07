@@ -1,0 +1,36 @@
+<div class="center-form">
+  <form autocomplete="off" class="form-container" [formGroup]="myForm">
+    <div class="header">
+      <h2>Módulo de Refinanciación</h2>
+      <button type="button" class="close-button" (click)="closeDialog()">
+        &times;
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-12 p-1">
+        <div class="form-group">
+          <label>Cuotas</label>
+          <select class="form-select con-md-12" formControlName="idFee">
+            <option [value]="0" selected>Seleccione ...</option>
+            <option *ngFor="let fee of feeList$ | async" [value]="fee.item">
+              {{ fee.description }} ({{ fee.text_1 }})
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 p-1">
+        <div class="form-group text-end">
+          <button
+            type="button"
+            class="btn btn-warning mr-1"
+            (click)="onRefinance()"
+          >
+            <i class="fas fa-save"></i> Guardar Refinanciación
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -11,11 +11,13 @@ import { registerLocaleData, CurrencyPipe } from '@angular/common';
 import localepe from '@angular/common/locales/es-PE';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Statement } from '../../../../interface/statement';
 import { FeeSchedule } from '../../../../interface/fee-schedule';
 import { LoanHistory } from '../../../../interface/loan-history';
 import { OperationService } from '../../../service/operation.service';
+import { RefinanceModalComponent } from '../refinance-modal/refinance-modal.component';
 
 registerLocaleData(localepe);
 
@@ -40,6 +42,7 @@ export class PaymentDetailComponent {
   formattedPeriod: string = '';
 
   constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     @Inject(LOCALE_ID) private locale: string,
     private currencyPipe: CurrencyPipe,
@@ -68,11 +71,13 @@ export class PaymentDetailComponent {
       this.statementList.forEach((statement) => {
         this.amountMandatoryPayment += statement.value;
       });
-
-      this.formatPeriod(this.statementList[0].contributionPeriod);
+      if (this.statementList.length > 0) {
+        this.formatPeriod(this.statementList[0].contributionPeriod);
+      }
     }
 
     if (changes['feeScheduleList']) {
+      if (this.feeScheduleList.length === 0) return;
       this.totalDifference =
         this.feeScheduleList[0].initialBalance +
         this.feeScheduleList.reduce((sum, fee) => sum + fee.interestAmount, 0) -
@@ -144,12 +149,13 @@ export class PaymentDetailComponent {
 
       Swal.fire({
         title: 'Desea proceder con la operación?',
-        html: `La distribución del pago es:
+        html: `<br>*** El monto ingresado es de: <strong>${this.formattedAmountToPay}</strong> ***
+          <br>Distribución del pago:
           <br>Oblgaciones a pagar: ${this.formatedAmountMandatoryPayment}
-          <br><strong>La amortización de la cuota es: ${this.formattedFeePayment} </strong>
+          <br><strong>La amortización a la cuota es: ${this.formattedFeePayment} </strong>
           <br>*** Monto de la cuota: <strong>${this.formatedFeeAmount}</strong> ***
-          <br>*** El monto ingresado es de: <strong>${this.formattedAmountToPay}</strong> ***
-          <br><strong>Si hay monto excedente, este afectará a la siguiente cuota</strong>
+          <br><strong>Si el monto excede, se descontará de la siguiente cuota</strong>
+          <br><strong>Si el monto es menor que la cuota, el saldo será refinanciado</strong>
           <br>¿Deseas continuar con el pago?`,
         icon: 'warning',
         showCancelButton: true,
@@ -194,5 +200,11 @@ export class PaymentDetailComponent {
     } else {
       console.warn('El formulario no es válido');
     }
+  }
+
+  openRefinanceModal(): void {
+    const dialogRef = this.dialog.open(RefinanceModalComponent, {
+      data: { idPartner: this.feeScheduleList[0].idPartner },
+    });
   }
 }
