@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="center-form">
+    <form autocomplete="off" class="form-container" [formGroup]="myForm">
+      <div class="header">
+        <h2>Periodos pendientes</h2>
+        <button type="button" class="close-button" (click)="closeDialog()">
+          &times;
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-md-12 p-1">
+          <label>Periodo</label>
+          <select class="form-select con-md-12" formControlName="currentPeriod">
+            <option [value]="0" selected>Seleccione ...</option>
+            <option
+              *ngFor="let period of pendingPeriods"
+              [value]="period.period"
+            >
+              {{ period.textPeriod }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 p-1 text-right">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onProcessPeriod()"
+          >
+            <i class="fas fa-bolt me-1"></i> Procesar periodo
+          </button>
+        </div>
+      </div>
+      <p class="mt-3 alert alert-info" *ngIf="pendingPeriods.length === 0">
+        No hay periodos pendientes de procesar
+      </p>
+    </form>
+  </div>
+</div>

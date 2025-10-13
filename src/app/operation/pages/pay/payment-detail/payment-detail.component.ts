@@ -72,30 +72,22 @@ export class PaymentDetailComponent {
         this.amountMandatoryPayment += statement.value;
       });
       if (this.statementList.length > 0) {
-        this.formatPeriod(this.statementList[0].contributionPeriod);
+        this.formattedPeriod =
+          (this.statementList[0].contributionPeriod + '').slice(0, 4) +
+          '-' +
+          (this.statementList[0].contributionPeriod + '').slice(4);
       }
     }
 
     if (changes['feeScheduleList']) {
       if (this.feeScheduleList.length === 0) return;
+
+      const firstRow = this.feeScheduleList.find((fee) => fee.paid === false);
       this.totalDifference =
-        this.feeScheduleList[0].initialBalance +
-        this.feeScheduleList.reduce((sum, fee) => sum + fee.interestAmount, 0) -
-        this.feeScheduleList.reduce((sum, fee) => sum + fee.amountToPay, 0);
+        (firstRow?.initialBalance || 0) +
+        (firstRow?.interestAmount || 0) -
+        (firstRow?.amountToPay || 0);
     }
-  }
-
-  formatPeriod(period: number): void {
-    switch ((period + '').length) {
-      case 5:
-        this.formattedPeriod = '0' + (period + '').substring(0, 1) + '-';
-        break;
-      case 6:
-        this.formattedPeriod = (period + '').substring(0, 2) + '-';
-        break;
-    }
-
-    this.formattedPeriod += (period + '').slice(-4);
   }
 
   onPay(): void {

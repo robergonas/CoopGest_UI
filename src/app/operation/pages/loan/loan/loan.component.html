@@ -4,7 +4,7 @@
     [feeList$]="feeList$"
     [fixedPayment$]="fixedPayment$"
     (partnerSelected)="onPartnerSelected($event)"
-    (itemSelected)="onItemSelected($event)"
+    (itemSelected)="onItemSelected($event.item, $event.textItem)"
     (GetFeeList)="onGetFeList($event)"
     (SetLoanAdd)="onSetLoanAdd($event)"
   ></app-loan-header>

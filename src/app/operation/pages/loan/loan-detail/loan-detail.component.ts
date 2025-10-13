@@ -41,13 +41,16 @@ export class LoanDetailComponent implements OnInit {
     if (changes['feeList']) {
       this.messageLines = this.informationMessage.split('<br>');
       this.dataLoaded = true;
-      this.totalRate = this.feeList[0].rateAmount;
-      /*this.feeList.reduce(
+
+      if (this.feeList.length > 0) {
+        this.totalRate = this.feeList[0].rateAmount;
+        /*this.feeList.reduce(
         (acc, fee) => acc + fee.rateAmount,
         0
       );*/
 
-      this.totalFee = this.feeList[0].initialBalance + this.totalRate;
+        this.totalFee = this.feeList[0].initialBalance + this.totalRate;
+      }
     }
   }
 }

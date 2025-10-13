@@ -1,12 +1,30 @@
 export interface Utility {
+  idDistribution: number;
   idPartner: number;
   name: string;
   period: number;
-  partnerCapital: number;
-  periodCapital: number;
-  partnerPercentage: number;
-  periodUtility: number;
   periodBill: number;
+  totalUtility: number;
+  partnerPercentage: number;
   partnerUtility: number;
+  processedBy: number;
+  processDate: string;
+  active: boolean;
+  totalCapital: number;
+  partnerCapital: number;
+  totalExpenses: number;
+  expensePercentage: number;
+  partnerExpense: number;
+  utilityBeforeExpenses: number;
+  idUserCreation: number;
+  creationDate: string;
+  idUserModification: number;
+  modificationDate: string;
+  message: string;
+  grossUtility: number;
+  totalExpensive: number;
+  netUtility: number;
+  distributedSum: number;
+  participatingPartner: number;
   month: string;
 }

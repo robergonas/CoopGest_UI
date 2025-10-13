@@ -537,6 +537,27 @@ export class OperationService {
       );
   }
 
+  onGetPendingPeriod(): Observable<any> {
+    const body = JSON.stringify('{}');
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_LOAN}GetPendingPeriod`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
   onGetBills(period: string): Observable<any> {
     const encryptedPeriod = this.encryption.encryptData(period);
     const body = JSON.stringify('{"period":"' + encryptedPeriod + '"}');
@@ -814,6 +835,34 @@ export class OperationService {
 
     return this.http
       .post<any>(`${constants.BASE_URL_LOAN}SetRefinancingOnDemand`, body, {
+        headers,
+      })
+      .pipe(
+        catchError((error: any): Observable<any> => {
+          return new Observable((observer) => {
+            observer.next({
+              state: false,
+              message: error.message,
+            });
+            observer.complete();
+          });
+        })
+      );
+  }
+
+  onSetDistributeUtility(period: string): Observable<any> {
+    const encryptedPeriod = this.encryption.encryptData(period);
+    const encryptedUser = this.encryption.encryptData(
+      constants.current_User()!.idPartner + ''
+    );
+    const body = JSON.stringify(
+      '{"idUser":"' + encryptedUser + '","period":"' + encryptedPeriod + '"}'
+    );
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .post<any>(`${constants.BASE_URL_LOAN}SetDistributeUtility`, body, {
         headers,
       })
       .pipe(

@@ -19,6 +19,8 @@ import { OperationService } from '../../service/operation.service';
 import { Utility } from '../../../interface/utility';
 import { Period } from '../../../interface/period';
 import { PartnerSummary } from '../../../interface/PartnerSummary';
+import { MatDialog } from '@angular/material/dialog';
+import { PendingPeriodsComponent } from '../../../components/pending-periods/pending-periods.component';
 
 registerLocaleData(localepe);
 
@@ -42,6 +44,7 @@ export class UtilityComponent {
   partnerList: Partner[] = [];
   utilityList: Utility[] = [];
   periodList: Period[] = [];
+  pendingPeriods: Period[] = [];
   partnerSummaries: PartnerSummary[] = [];
   selectedPartner: Partner | null = null;
   dataLoaded: boolean = false;
@@ -53,7 +56,8 @@ export class UtilityComponent {
   constructor(
     @Inject(LOCALE_ID) public locale: string,
     private operationService: OperationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.myForm = this.fb.group({
       idPartner: ['0'],
@@ -207,8 +211,8 @@ export class UtilityComponent {
 
       partner.periods.push({
         month: item.month,
-        periodCapital: item.periodCapital,
-        periodUtility: item.periodUtility,
+        periodCapital: item.period,
+        periodUtility: item.period,
         periodBill: item.periodBill,
         partnerPercentage: item.partnerPercentage,
         partnerCapital: item.partnerCapital,
@@ -225,13 +229,14 @@ export class UtilityComponent {
     this.operationService.onGetPeriod().subscribe((response) => {
       if (response.state) {
         this.periodList = response.list || [];
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: response.message || 'error desconocido.',
-          confirmButtonText: 'Entendido',
-        });
+        if (this.periodList.length === 0) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Información',
+            text: 'No se encontraron periodos que hayan sido procesados, por favor ir a la opción de cerrar periodo.',
+            confirmButtonText: 'Entendido',
+          });
+        }
       }
     });
   }
@@ -276,5 +281,22 @@ export class UtilityComponent {
     } else {
       console.warn('El formulario no es válido');
     }
+  }
+
+  onClosePeriod(): void {
+    const dialogRef = this.dialog.open(PendingPeriodsComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      disableClose: true,
+    });
+
+    const subscription = dialogRef.componentInstance.isClosingProcess.subscribe(
+      {
+        next: (result: number) => {
+          this.onGetPerido();
+          dialogRef.close();
+        },
+      }
+    );
   }
 }

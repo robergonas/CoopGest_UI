@@ -20,15 +20,21 @@ registerLocaleData(localepe);
   providers: [{ provide: LOCALE_ID, useValue: 'es-PE' }],
 })
 export class LoanHeaderComponent {
+  textItem: string = '';
+
   @Input() partnerList: Partner[] = [];
   @Input() feeList$!: Observable<Setting[]>;
   @Input() fixedPayment$!: Observable<Setting[]>;
 
   @Output() partnerSelected = new EventEmitter<string>();
-  @Output() itemSelected = new EventEmitter<string>();
+  @Output() itemSelected = new EventEmitter<{
+    item: string;
+    textItem: string;
+  }>();
 
   @Output() SetLoanAdd = new EventEmitter<{
     item: string;
+    textItem: string;
     idPartner: string;
     amount: string;
   }>();
@@ -74,7 +80,13 @@ export class LoanHeaderComponent {
           confirmButtonText: 'Entendido',
         });
         return;
-      } else this.SetLoanAdd.emit({ item, idPartner, amount });
+      } else
+        this.SetLoanAdd.emit({
+          item: item,
+          textItem: this.textItem,
+          idPartner: idPartner,
+          amount: amount,
+        });
     } else {
       console.warn('El formulario no es válido');
     }
@@ -105,15 +117,22 @@ export class LoanHeaderComponent {
           confirmButtonText: 'Entendido',
         });
         return;
-      } else this.GetFeeList.emit({ item, idPartner, amount });
+      } else
+        this.GetFeeList.emit({
+          item: item,
+          idPartner: idPartner,
+          amount: amount,
+        });
     } else {
       console.warn('El formulario no es válido');
     }
   }
 
   onSelectFee(event: Event): void {
-    const selectedValue = (event.target as HTMLSelectElement).value;
-    this.itemSelected.emit(selectedValue);
+    const selectElement = event.target as HTMLSelectElement;
+    this.textItem = selectElement.options[selectElement.selectedIndex].text;
+    const selectValue = selectElement.value;
+    this.itemSelected.emit({ item: selectValue, textItem: this.textItem });
   }
 
   onSelectPartner(event: Event): void {

@@ -53,15 +53,19 @@ export class LoanComponent {
 
   onSetLoanAdd({
     item,
+    textItem,
     idPartner,
     amount,
   }: {
     item: string;
+    textItem: string;
     idPartner: string;
     amount: string;
   }): void {
     Swal.fire({
+      icon: 'question',
       title: `Esta seguro de generar el prestamo?`,
+      text: `Se generará un prestamo por S/. ${amount} en ${textItem}.`,
       showDenyButton: true,
       confirmButtonText: 'Si, estoy seguro.',
       denyButtonText: `No, cancelar`,
@@ -127,7 +131,7 @@ export class LoanComponent {
     this.myForm.patchValue({ idPartner: idPartner });
   }
 
-  onItemSelected(item: string): void {
+  onItemSelected(item: string, textItem: string): void {
     this.myForm.patchValue({ item: item });
   }
 
