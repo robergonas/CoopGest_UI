@@ -40,6 +40,7 @@ export class RefinanceModalComponent {
       idFee: ['0'],
     });
   }
+
   closeDialog(): void {
     this.dialog.close();
   }
@@ -98,7 +99,7 @@ export class RefinanceModalComponent {
                 icon: 'success',
                 confirmButtonText: 'Aceptar',
               });
-              this.dialog.close(true);
+              this.dialog.close({ success: true, idPartner: this.idPartner });
             } else {
               Swal.fire({
                 title: 'Error al procesar la refinanciación',

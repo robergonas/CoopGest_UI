@@ -196,7 +196,21 @@ export class PaymentDetailComponent {
 
   openRefinanceModal(): void {
     const dialogRef = this.dialog.open(RefinanceModalComponent, {
-      data: { idPartner: this.feeScheduleList[0].idPartner },
+      width: '600px',
+      maxHeight: '90vw',
+      data: {
+        idPartner: this.feeScheduleList[0]?.idPartner || '0',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result.success) {
+        const idPartnerToEmit =
+          result.idPartner || this.feeScheduleList[0]?.idPartner || '0';
+        if (idPartnerToEmit) {
+          this.partnerSelected.emit(idPartnerToEmit + '');
+        }
+      }
     });
   }
 }

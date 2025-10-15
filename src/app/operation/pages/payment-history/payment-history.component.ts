@@ -81,7 +81,6 @@ export class PaymentHistoryComponent {
       if (response.state) {
         this.loanList = response.list || [];
         this.dataLoaded = true;
-        
 
         this.feeScheduleList = [];
         this.loanHistoryList = [];
@@ -108,13 +107,10 @@ export class PaymentHistoryComponent {
           );
           this.onGetLoanHistory();
 
-          this.totalDifference =
-            this.feeScheduleList[0].initialBalance +
-            this.feeScheduleList.reduce(
-              (sum, fee) => sum + fee.interestAmount,
-              0
-            ) -
-            this.feeScheduleList.reduce((sum, fee) => sum + fee.amountToPay, 0);
+          this.totalDifference = this.feeScheduleList.reduce(
+            (sum, fee) => sum + fee.feeAmount,
+            0
+          );
         } else {
           Swal.fire({
             icon: 'error',

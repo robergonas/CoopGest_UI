@@ -166,6 +166,14 @@ export class BillsComponent implements OnInit {
     this.operationService.onGetPeriod().subscribe((response) => {
       if (response.state) {
         this.periodList = response.list || [];
+        if (this.periodList.length === 0) {
+          Swal.fire({
+            icon: 'info',
+            title: 'Información',
+            text: 'No se encontraron periodos disponibles.',
+            confirmButtonText: 'Entendido',
+          });
+        }
       } else {
         Swal.fire({
           icon: 'error',

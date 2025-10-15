@@ -44,8 +44,9 @@
           class="btn btn-info ml-1"
           (click)="OnSendEmail()"
           *ngIf="
-            myForm.get('idPartner')?.value > 0 ||
-            myForm.get('period')?.value > 0
+            utilityList.length === 1 &&
+            dataLoaded &&
+            partnerSummaries.length > 0
           "
         >
           <i class="fa-regular fa-envelope"></i>
